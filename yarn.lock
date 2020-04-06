@@ -6685,6 +6685,11 @@ readdirp@~3.3.0:
   dependencies:
     picomatch "^2.0.7"
 
+recaptcha-v3@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.npm.taobao.org/recaptcha-v3/download/recaptcha-v3-1.8.0.tgz#b39ae7cba5322ed7027359c3f14502e44e909f83"
+  integrity sha1-s5rny6UyLtcCc1nD8UUC5E6Qn4M=
+
 rechoir@^0.6.2:
   version "0.6.2"
   resolved "https://registry.npm.taobao.org/rechoir/download/rechoir-0.6.2.tgz#85204b54dba82d5742e28c96756ef43af50e3384"
@@ -8178,6 +8183,13 @@ vue-loader@^15.8.3:
     loader-utils "^1.1.0"
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
+
+vue-recaptcha-v3@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.npm.taobao.org/vue-recaptcha-v3/download/vue-recaptcha-v3-1.9.0.tgz#6315ea07e2ae34abbb11e840ab9f18a427c5d53b"
+  integrity sha1-YxXqB+KuNKu7EehAq58YpCfF1Ts=
+  dependencies:
+    recaptcha-v3 "^1.8.0"
 
 vue-router@^3.1.5:
   version "3.1.6"

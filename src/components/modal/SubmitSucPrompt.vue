@@ -11,7 +11,9 @@
       <v-card-text>
         您的任务编号为: <code>{{ task.taskid }}</code
         ><br />
-        它将保存在您的浏览器缓存中，您可以随时<a>查看进度</a>。
+        它将保存在您的浏览器缓存中，您可以随时<router-link to="/list"
+          >查看进度</router-link
+        >。
         <br />
         队列前方有<b>{{ task.submitinqueue }}</b
         >个任务。
@@ -37,8 +39,8 @@ export default {
       },
       set(val) {
         return this.$store.commit("updateSubmitSucPrompt", val);
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>

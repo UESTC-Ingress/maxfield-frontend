@@ -30,9 +30,9 @@
           <v-list-item-title>提交计算</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item link>
+      <v-list-item to="/list">
         <v-list-item-icon>
-          <v-icon>mdi-map</v-icon>
+          <v-icon>mdi-clipboard-list-outline</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title>查询</v-list-item-title>
@@ -40,7 +40,7 @@
       </v-list-item>
       <v-list-item link>
         <v-list-item-icon>
-          <v-icon>mdi-map</v-icon>
+          <v-icon>mdi-cog-outline</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title>设置</v-list-item-title>
