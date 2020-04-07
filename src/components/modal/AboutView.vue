@@ -15,7 +15,7 @@
           Niantic CN Version Frontend v0.3
         </v-card-subtitle>
 
-        本前端程序由 NIA-CN 高性能实验室维护，使用 GPLv3 方式授权。
+        本前端程序由 NIACNET 高性能实验室维护，使用 GPLv3 方式授权。
       </v-card-text>
 
       <v-divider></v-divider>

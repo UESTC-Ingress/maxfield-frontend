@@ -11,7 +11,9 @@
       <v-card-text>
         您的任务编号为: <code>{{ task.taskid }}</code
         ><br />
-        它将保存在您的浏览器缓存中，您可以随时<router-link to="/list"
+        它将保存在您的浏览器缓存中，您可以随时<router-link
+          to="/list"
+          @click="dialog = false"
           >查看进度</router-link
         >。
         <br />

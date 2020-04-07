@@ -4,6 +4,7 @@ import Home from "../views/Home.vue";
 import Submit from "../views/Submit.vue";
 import List from "../views/List.vue";
 import Info from "../views/Info.vue";
+import Stats from "../views/Stats.vue";
 
 Vue.use(VueRouter);
 
@@ -27,6 +28,11 @@ const routes = [
     path: "/info/:workerid/:taskid",
     name: "Info",
     component: Info
+  },
+  {
+    path: "/stats",
+    name: "Stats",
+    component: Stats
   }
 ];
 

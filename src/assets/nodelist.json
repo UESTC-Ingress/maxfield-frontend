@@ -1,38 +1,47 @@
 {
   "test": {
     "name": "测试节点",
+    "cores": 1,
     "endpoint": "http://127.0.0.1:1331"
   },
   "Alpha-1": {
     "name": "Alpha-1",
+    "cores": 2,
     "endpoint": "https://worker-1-alpha-stevecharlesyang.cloud.okteto.net"
   },
   "Alpha-2": {
     "name": "Alpha-2",
+    "cores": 2,
     "endpoint": "https://worker-2-alpha-stevecharlesyang.cloud.okteto.net"
   },
   "Beta-1": {
     "name": "Beta-1",
+    "cores": 2,
     "endpoint": "https://worker-1-beta-stevecharlesyang.cloud.okteto.net"
   },
   "Beta-2": {
     "name": "Beta-2",
+    "cores": 2,
     "endpoint": "https://worker-2-beta-stevecharlesyang.cloud.okteto.net"
   },
   "Gamma-1": {
     "name": "Gamma-1",
+    "cores": 2,
     "endpoint": "https://worker-1-gamma-mrpeterjin.cloud.okteto.net"
   },
   "Gamma-2": {
     "name": "Gamma-2",
+    "cores": 2,
     "endpoint": "https://worker-2-gamma-mrpeterjin.cloud.okteto.net"
   },
   "Delta-1": {
     "name": "Delta-1",
+    "cores": 2,
     "endpoint": "https://worker-1-delta-mrpeterjin.cloud.okteto.net"
   },
   "Delta-2": {
     "name": "Delta-2",
+    "cores": 2,
     "endpoint": "https://worker-2-delta-mrpeterjin.cloud.okteto.net"
   }
 }

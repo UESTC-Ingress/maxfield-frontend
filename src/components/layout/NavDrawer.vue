@@ -6,7 +6,7 @@
           MaxField
         </v-list-item-title>
         <v-list-item-subtitle>
-          Powered by NIA-CN
+          Powered by NIACNET
         </v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
@@ -38,19 +38,19 @@
           <v-list-item-title>查询</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item link disabled>
+      <v-list-item to="/stats">
         <v-list-item-icon>
-          <v-icon>mdi-cog-outline</v-icon>
+          <v-icon>mdi-information</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <v-list-item-title>设置 (未完工)</v-list-item-title>
+          <v-list-item-title>统计 (未完工)</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list>
 
     <template v-slot:append>
       <v-footer>
-        <span class="font-weight-light">Niantic Project China</span>
+        <span class="font-weight-light">NIACNET 高性能计算中心</span>
         <v-spacer />
         <AboutView />
       </v-footer>

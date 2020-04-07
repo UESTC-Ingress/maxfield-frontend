@@ -1,11 +1,45 @@
 <template>
   <v-container>
     <v-card>
-      <v-card-title>提交MaxField请求</v-card-title>
+      <v-card-title>提交 MaxField 请求</v-card-title>
       <v-divider />
       <v-card-text>
         <v-form ref="form">
-          <v-subheader>MaxField信息</v-subheader>
+          <v-subheader
+            >MaxField 信息
+            <v-dialog v-model="helper_portals" max-width="560">
+              <template v-slot:activator="{ on }">
+                <v-icon small v-on="on">mdi-help-circle</v-icon>
+              </template>
+              <v-card>
+                <v-card-title class="headline"
+                  >如何填写 Portal 列表？</v-card-title
+                >
+                <v-card-text>
+                  <p>
+                    1. 在 Intel 中找到 Portal<br />
+                    2. 点击 Portal，一个信息界面将会出现<br />
+                    3. 点击 Intel 右上角的 Link 按钮<br />
+                    4. 复制它的链接，将其粘贴到列表内<br />
+                  </p>
+                  <p>
+                    格式为: <code>Portal 名; Intel 链接</code> <br />
+                    亦支持:
+                    <code
+                      >Portal 名; Intel 链接; Key数量; SBUL(指使用SBUL)</code
+                    >
+                  </p>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="primary" text @click="helper_portals = false"
+                    >关闭</v-btn
+                  >
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </v-subheader>
+
           <v-textarea
             auto-grow
             outlined
@@ -18,7 +52,7 @@
                 (v && v.split(/\r\n|\r|\n/).length < 50) ||
                 'Portal数量限制在50个',
               v =>
-                /^([^;]*; https:\/\/intel.ingress.com\/intel\?ll=-?[0-9]*\.[0-9]*,-?[0-9]*\.[0-9]*&z=[0-9]*&pll=-?[0-9]*\.[0-9]*,-?[0-9]*\.[0-9]*\n?){1,50}$/g.test(
+                /^([^;]*; https:\/\/intel.ingress.com\/intel\?ll=-?[0-9]*\.[0-9]*,-?[0-9]*\.[0-9]*&z=[0-9]*&pll=-?[0-9]*\.[0-9]*,-?[0-9]*\.[0-9]*(;[0-9]{1,})?(;SBUL)?\n?){1,50}$/g.test(
                   v
                 ) || '输入内容不合法'
             ]"
@@ -106,6 +140,7 @@ export default {
       "g-recaptcha-response": null
     },
     loading: false,
+    helper_portals: false,
     task: {
       taskid: null,
       submitinqueue: 0
