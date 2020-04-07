@@ -92,9 +92,13 @@ export default {
               for (let index = 0; index < res.data.data.length; index++) {
                 tasklist_s[tasklist_s.indexOf(task_status_post[index])].status =
                   res.data.data[index];
-                this.tasklist = tasklist_s;
-                this.loading = false;
+                if (res.data.expire[index] != null)
+                  tasklist_s[
+                    tasklist_s.indexOf(task_status_post[index])
+                  ].created = new Date(res.data.expire[index]);
               }
+              this.tasklist = tasklist_s;
+              this.loading = false;
             });
         else {
           this.tasklist = tasklist_s;
