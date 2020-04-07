@@ -29,15 +29,28 @@
           </v-row>
         </template>
       </v-img>
+      <v-btn color="orange" dark top absolute right fab @click="download_pic">
+        <v-icon>mdi-download</v-icon>
+      </v-btn>
     </v-row>
   </div>
 </template>
 <script>
+import downloadFile from "@/utils/download.js";
+
 export default {
   data: () => ({
     toggle_map: 0,
     filenames: ["portal_map.png", "link_map.png", "plan_movie.gif"]
   }),
-  props: ["taskinfo"]
+  props: ["taskinfo"],
+  methods: {
+    download_pic: function() {
+      downloadFile(
+        this.taskinfo.endpoint + "/" + this.filenames[this.toggle_map],
+        this.filenames[this.toggle_map]
+      );
+    }
+  }
 };
 </script>

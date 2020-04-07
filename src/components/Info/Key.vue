@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-tabs grow :show-arrows="false" centered>
+    <v-tabs grow v-model="tab_pos" :show-arrows="false" centered>
       <v-tab>
         <v-icon>mdi-key</v-icon>
         Key获取
@@ -28,16 +28,21 @@
         </v-card-text>
       </v-tab-item>
     </v-tabs>
+    <v-btn color="orange" dark top absolute right fab @click="download_file">
+      <v-icon>mdi-download</v-icon>
+    </v-btn>
   </div>
 </template>
 <script>
 import csvToObj from "@/utils/csv.js";
+import downloadFile from "@/utils/download.js";
 
 export default {
   props: ["taskinfo"],
   data: () => ({
     key_list: [],
     loading: true,
+    tab_pos: 0,
     capture_data: "",
     headers: [
       {
@@ -55,6 +60,18 @@ export default {
     ]
   }),
   methods: {
+    download_file: function() {
+      if (this.tab_pos == 0)
+        downloadFile(
+          this.taskinfo.endpoint + "/agent_key_preparation.csv",
+          "agent_key_preparation.csv"
+        );
+      if (this.tab_pos == 1)
+        downloadFile(
+          this.taskinfo.endpoint + "/ownership_preparation.txt",
+          "agent_key_preparation.csv"
+        );
+    },
     updateData: function() {
       this.axios
         .get(this.taskinfo.endpoint + "/agent_key_preparation.csv")
