@@ -24,11 +24,11 @@ export default {
     //
   }),
   mounted() {
-    if (localStorage.userID) {
-      this.$store.commit("updateUserID", localStorage.userID);
-    } else {
-      this.$store.commit("updateNewUserPrompt", true);
-    }
+    // if (localStorage.userID) {
+    //   this.$store.commit("updateUserID", localStorage.userID);
+    // } else {
+    //   this.$store.commit("updateNewUserPrompt", true);
+    // }
     if (localStorage.colortheme) {
       this.$vuetify.theme.themes.light.primary = localStorage.colortheme;
       this.$vuetify.theme.themes.dark.primary = localStorage.colortheme;

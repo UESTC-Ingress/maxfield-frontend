@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div>
     <v-tabs grow :show-arrows="false" centered v-model="toggle_map">
       <v-tab>
         <v-icon>mdi-map-marker</v-icon>
@@ -30,7 +30,7 @@
         </template>
       </v-img>
     </v-row>
-  </v-container>
+  </div>
 </template>
 <script>
 export default {

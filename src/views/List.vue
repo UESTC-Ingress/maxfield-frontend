@@ -69,22 +69,30 @@ export default {
         tasklist_s = tasklist_s.reverse();
         var task_status_post = [];
         tasklist_s.forEach((el) => {
-          task_status_post.push(el.taskid);
+          if ((new Date() - el.created.getTime()) / 1000 > 86400)
+            el.status = "EXPIRED";
+          else task_status_post.push(el);
         });
-        this.axios
-          .post(
-            "https://maxfield-api-dev-stevecharlesyang.cloud.okteto.net/status",
-            {
-              tasks: task_status_post,
-            }
-          )
-          .then((res) => {
-            for (let index = 0; index < res.data.data.length; index++) {
-              tasklist_s[index].status = res.data.data[index];
-            }
-            this.tasklist = tasklist_s;
-            this.loading = false;
-          });
+        if (task_status_post.length)
+          this.axios
+            .post(
+              "https://maxfield-api-dev-stevecharlesyang.cloud.okteto.net/status",
+              {
+                tasks: task_status_post.map((e) => e.taskid),
+              }
+            )
+            .then((res) => {
+              for (let index = 0; index < res.data.data.length; index++) {
+                tasklist_s[tasklist_s.indexOf(task_status_post[index])].status =
+                  res.data.data[index];
+                this.tasklist = tasklist_s;
+                this.loading = false;
+              }
+            });
+        else {
+          this.tasklist = tasklist_s;
+          this.loading = false;
+        }
       } else {
         this.loading = false;
       }
@@ -104,6 +112,8 @@ export default {
       switch (status) {
         case "FAILED":
           return { color: "red", selectable: false, descr: "失败" };
+        case "EXPIRED":
+          return { color: "grey", selectable: false, descr: "过期" };
         case null:
           return { color: "orange", selectable: false, descr: "等待中" };
         default:

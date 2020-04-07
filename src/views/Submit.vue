@@ -7,11 +7,21 @@
         <v-form ref="form">
           <v-subheader>MaxField信息</v-subheader>
           <v-textarea
+            auto-grow
             outlined
             v-model="formData.portals"
             name="input-7-4"
             label="Portal列表"
-            :rules="[(v) => !!v || '您必须输入内容！']"
+            :rules="[
+              (v) => !!v || '您必须输入内容！',
+              (v) =>
+                (v && v.split(/\r\n|\r|\n/).length < 50) ||
+                'Portal数量限制在50个',
+              (v) =>
+                /^([^;]*; https:\/\/intel.ingress.com\/intel\?ll=-?[0-9]*\.[0-9]*,-?[0-9]*\.[0-9]*&z=[0-9]*&pll=-?[0-9]*\.[0-9]*,-?[0-9]*\.[0-9]*\n?){1,50}$/g.test(
+                  v
+                ) || '输入内容不合法',
+            ]"
           ></v-textarea>
           <v-row>
             <v-col cols="12" sm="4">
@@ -36,7 +46,8 @@
             <v-col cols="12" sm="4">
               <v-checkbox
                 v-model="formData.googlemap"
-                label="是否使用Google Maps?"
+                label="是否使用Google Maps? (暂不可用)"
+                disabled
               ></v-checkbox>
             </v-col>
           </v-row>
@@ -44,12 +55,13 @@
           <v-text-field
             v-model="formData.email"
             outlined
-            label="邮箱（可选）"
+            disabled
+            label="邮箱（可选）(暂不可用)"
           ></v-text-field>
           <v-subheader>条款相关</v-subheader>
           <v-checkbox
             :rules="[(v) => !!v || '您必须同意此项！']"
-            label="是否接受MaxField NIA-CN隐私政策和用户使用条款?"
+            label="是否接受MaxField NIA-CN隐私政策和用户使用条款?（咕咕咕）"
             required
           ></v-checkbox>
           <v-checkbox
@@ -114,6 +126,7 @@ export default {
       if (!this.$refs.form.validate()) {
         return;
       }
+      this.formData.portals = this.formData.portals.replace(/,(?=.*;)/g, ".");
       this.loading = true;
       this.axios
         .post(

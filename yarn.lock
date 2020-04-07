@@ -2725,6 +2725,11 @@ csso@^4.0.2:
   dependencies:
     css-tree "1.0.0-alpha.37"
 
+csv-string@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.npm.taobao.org/csv-string/download/csv-string-3.2.0.tgz#d034b62dfcd10b95ff7e584401d15355805673bd"
+  integrity sha1-0DS2LfzRC5X/flhEAdFTVYBWc70=
+
 current-script-polyfill@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npm.taobao.org/current-script-polyfill/download/current-script-polyfill-1.0.0.tgz#f31cf7e4f3e218b0726e738ca92a02d3488ef615"

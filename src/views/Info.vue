@@ -25,7 +25,9 @@
           </v-card>
         </v-tab-item>
         <v-tab-item>
-          <v-card flat> </v-card>
+          <v-card flat>
+            <Assign :taskinfo="this.taskinfo" />
+          </v-card>
         </v-tab-item>
         <v-tab-item>
           <v-card flat>
@@ -38,12 +40,14 @@
 </template>
 <script>
 import Key from "@/components/Info/Key.vue";
+import Assign from "@/components/Info/Assign.vue";
 import Map from "@/components/Info/Map.vue";
 import nodelist from "@/assets/nodelist.json";
 
 export default {
   components: {
     Key,
+    Assign,
     Map,
   },
   data: () => ({

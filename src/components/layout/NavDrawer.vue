@@ -38,12 +38,12 @@
           <v-list-item-title>查询</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item link>
+      <v-list-item link disabled>
         <v-list-item-icon>
           <v-icon>mdi-cog-outline</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <v-list-item-title>设置</v-list-item-title>
+          <v-list-item-title>设置 (未完工)</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list>
@@ -69,8 +69,8 @@ export default {
       },
       set(val) {
         return this.$store.commit("updateDrawer", val);
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>
