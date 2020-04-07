@@ -8,7 +8,11 @@
       class="elevation-1"
     >
       <template v-slot:item.created="{ item }">
-        {{ plusoneday(item.created).toLocaleString() }}
+        {{
+          ["orange", "red"].includes(status2descr(item.status).color)
+            ? "--"
+            : plusoneday(item.created).toLocaleString()
+        }}
       </template>
       <template v-slot:item.status="{ item }">
         <v-chip :color="status2descr(item.status).color" dark>{{

@@ -3,7 +3,7 @@
     <v-list-item>
       <v-list-item-content>
         <v-list-item-title class="title">
-          MaxField
+          MaxField 计算系统
         </v-list-item-title>
         <v-list-item-subtitle>
           Powered by NIACNET

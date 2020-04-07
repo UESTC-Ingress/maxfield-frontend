@@ -6,6 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     drawerShow: false,
+    aboutShow: false,
     newUserPrompt: false,
     submitSucPrompt: false,
     userID: ""
@@ -16,6 +17,9 @@ export default new Vuex.Store({
     },
     updateDrawer(state, val) {
       state.drawerShow = val;
+    },
+    updateAbout(state, val) {
+      state.aboutShow = val;
     },
     updateNewUserPrompt(state, val) {
       state.newUserPrompt = val;

@@ -23,9 +23,22 @@
               <td>{{ node[1].name }}</td>
               <td>{{ node[1].cores }}</td>
               <td>
-                <v-chip :class="node[1].status ? 'success' : 'failed'">{{
-                  node[1].status ? "正常" : "丢失"
-                }}</v-chip>
+                <v-chip
+                  :class="
+                    node[1].status != undefined
+                      ? node[1].status
+                        ? 'success'
+                        : 'red'
+                      : 'grey'
+                  "
+                  >{{
+                    node[1].status != undefined
+                      ? node[1].status
+                        ? "正常"
+                        : "丢失"
+                      : "测试中"
+                  }}</v-chip
+                >
               </td>
             </tr>
           </tbody>

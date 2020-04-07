@@ -6,7 +6,7 @@
       <v-card-text>
         <v-form ref="form">
           <v-subheader
-            >MaxField 信息
+            >MaxField 信息 &nbsp;&nbsp;
             <v-dialog v-model="helper_portals" max-width="560">
               <template v-slot:activator="{ on }">
                 <v-icon small v-on="on">mdi-help-circle</v-icon>
@@ -45,12 +45,12 @@
             outlined
             v-model="formData.portals"
             name="input-7-4"
-            label="Portal列表"
+            label="Portal 列表"
             :rules="[
               v => !!v || '您必须输入内容！',
               v =>
                 (v && v.split(/\r\n|\r|\n/).length < 50) ||
-                'Portal数量限制在50个',
+                'Portal 数量限制在50个',
               v =>
                 /^([^;]*; https:\/\/intel.ingress.com\/intel\?ll=-?[0-9]*\.[0-9]*,-?[0-9]*\.[0-9]*&z=[0-9]*&pll=-?[0-9]*\.[0-9]*,-?[0-9]*\.[0-9]*(;[0-9]{1,})?(;SBUL)?\n?){1,50}$/g.test(
                   v
@@ -80,7 +80,7 @@
             <v-col cols="12" sm="4">
               <v-checkbox
                 v-model="formData.googlemap"
-                label="是否使用Google Maps? (暂不可用)"
+                label="是否使用 Google Maps? (暂不可用)"
                 disabled
               ></v-checkbox>
             </v-col>
@@ -95,7 +95,7 @@
           <v-subheader>条款相关</v-subheader>
           <v-checkbox
             :rules="[v => !!v || '您必须同意此项！']"
-            label="是否接受MaxField NIA-CN隐私政策和用户使用条款?（咕咕咕）"
+            label="是否接受 MaxField NIA-CN 隐私政策和用户使用条款?（咕咕咕）"
             required
           ></v-checkbox>
           <v-checkbox
