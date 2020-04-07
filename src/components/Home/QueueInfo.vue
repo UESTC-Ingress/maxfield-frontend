@@ -37,7 +37,7 @@ export default {
         .get("https://maxfield-api-dev-stevecharlesyang.cloud.okteto.net/queue")
         .then(res => {
           if (res.data.error == true) {
-            console.log(res.data);
+            //console.log(res.data);
           } else {
             this.queued = res.data.inqueue;
             this.workers = res.data.worker;

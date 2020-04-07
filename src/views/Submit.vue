@@ -139,7 +139,7 @@ export default {
             if (res.data.desc == "CAPTCHA") {
               this.formData["g-recaptcha-response"] = null;
             }
-            if (res.data.desc == "FIELD") console.log(res.data);
+            //if (res.data.desc == "FIELD") console.log(res.data);
           } else {
             this.task.taskid = res.data.submitid;
             this.task.submitinqueue = res.data.inqueue;
