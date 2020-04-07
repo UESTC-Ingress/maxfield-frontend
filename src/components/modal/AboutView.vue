@@ -75,8 +75,8 @@
 export default {
   data() {
     return {
-      dialog: false,
+      dialog: false
     };
-  },
+  }
 };
 </script>

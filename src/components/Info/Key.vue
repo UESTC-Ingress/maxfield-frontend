@@ -42,32 +42,32 @@ export default {
     headers: [
       {
         text: "Agent",
-        value: "Agent",
+        value: "Agent"
       },
       {
         text: "需要Key",
-        value: "KeysNeeded",
+        value: "KeysNeeded"
       },
       {
         text: "Portal",
-        value: "Portal Name",
-      },
-    ],
+        value: "Portal Name"
+      }
+    ]
   }),
   methods: {
     updateData: function() {
       this.axios
         .get(this.taskinfo.endpoint + "/agent_key_preparation.csv")
-        .then((res) => {
+        .then(res => {
           this.key_list = csvToObj(res.data);
           this.loading = false;
         });
       this.axios
         .get(this.taskinfo.endpoint + "/ownership_preparation.txt")
-        .then((res) => {
+        .then(res => {
           this.capture_data = res.data;
         });
-    },
+    }
   },
   watch: {
     taskinfo: {
@@ -75,8 +75,8 @@ export default {
         if (this.taskinfo != null) this.updateData();
       },
       immediate: true,
-      deep: true,
-    },
-  },
+      deep: true
+    }
+  }
 };
 </script>

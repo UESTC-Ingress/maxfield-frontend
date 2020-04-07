@@ -13,14 +13,14 @@
             name="input-7-4"
             label="Portal列表"
             :rules="[
-              (v) => !!v || '您必须输入内容！',
-              (v) =>
+              v => !!v || '您必须输入内容！',
+              v =>
                 (v && v.split(/\r\n|\r|\n/).length < 50) ||
                 'Portal数量限制在50个',
-              (v) =>
+              v =>
                 /^([^;]*; https:\/\/intel.ingress.com\/intel\?ll=-?[0-9]*\.[0-9]*,-?[0-9]*\.[0-9]*&z=[0-9]*&pll=-?[0-9]*\.[0-9]*,-?[0-9]*\.[0-9]*\n?){1,50}$/g.test(
                   v
-                ) || '输入内容不合法',
+                ) || '输入内容不合法'
             ]"
           ></v-textarea>
           <v-row>
@@ -36,7 +36,7 @@
             <v-col cols="12" sm="4">
               <v-radio-group
                 v-model="formData.faction"
-                :rules="[(v) => !!v || '您必须选择一项！']"
+                :rules="[v => !!v || '您必须选择一项！']"
                 row
               >
                 <v-radio label="启蒙军/ENL" color="green" value="enl"></v-radio>
@@ -60,13 +60,13 @@
           ></v-text-field>
           <v-subheader>条款相关</v-subheader>
           <v-checkbox
-            :rules="[(v) => !!v || '您必须同意此项！']"
+            :rules="[v => !!v || '您必须同意此项！']"
             label="是否接受MaxField NIA-CN隐私政策和用户使用条款?（咕咕咕）"
             required
           ></v-checkbox>
           <v-checkbox
             v-model="formData['g-recaptcha-response']"
-            :rules="[(v) => !!v || '验证未通过！']"
+            :rules="[v => !!v || '验证未通过！']"
             label="人机交互验证"
             required
             style="pointer-events: none;"
@@ -103,13 +103,13 @@ export default {
   data: () => ({
     formData: {
       agents: 1,
-      "g-recaptcha-response": null,
+      "g-recaptcha-response": null
     },
     loading: false,
     task: {
       taskid: null,
-      submitinqueue: 0,
-    },
+      submitinqueue: 0
+    }
   }),
   mounted() {
     this.recaptcha();
@@ -133,7 +133,7 @@ export default {
           "https://maxfield-api-dev-stevecharlesyang.cloud.okteto.net/submit",
           this.formData
         )
-        .then((res) => {
+        .then(res => {
           this.loading = false;
           if (res.data.error == true) {
             if (res.data.desc == "CAPTCHA") {
@@ -149,7 +149,7 @@ export default {
             idb.insert_task(res.data.submitid);
           }
         });
-    },
-  },
+    }
+  }
 };
 </script>

@@ -1,4 +1,4 @@
-import * as CSV from 'csv-string';
+import * as CSV from "csv-string";
 
 function csvToObj(text) {
   var obj = [];

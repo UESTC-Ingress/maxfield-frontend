@@ -48,15 +48,15 @@ export default {
   components: {
     Key,
     Assign,
-    Map,
+    Map
   },
   data: () => ({
-    taskinfo: null,
+    taskinfo: null
   }),
   computed: {
     vert: function() {
       return window.innerWidth > 600;
-    },
+    }
   },
   methods: {
     getInfo: function() {
@@ -67,17 +67,17 @@ export default {
             this.$route.params.taskid +
             "/info.json"
         )
-        .then((res) => {
+        .then(res => {
           this.taskinfo = res.data;
           this.taskinfo.endpoint =
             nodelist[this.$route.params.workerid].endpoint +
             "/" +
             this.$route.params.taskid;
         });
-    },
+    }
   },
   mounted() {
     this.getInfo();
-  },
+  }
 };
 </script>

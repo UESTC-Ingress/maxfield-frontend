@@ -69,8 +69,8 @@ export default {
       },
       set(val) {
         return this.$store.commit("updateDrawer", val);
-      },
-    },
-  },
+      }
+    }
+  }
 };
 </script>

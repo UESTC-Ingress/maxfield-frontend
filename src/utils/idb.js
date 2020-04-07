@@ -1,13 +1,13 @@
 var idb = {
   async init() {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       let request = window.indexedDB.open("maxfield", 2);
 
-      request.onsuccess = (e) => {
+      request.onsuccess = e => {
         resolve(e.target.result);
       };
 
-      request.onupgradeneeded = (e) => {
+      request.onupgradeneeded = e => {
         let db = e.target.result;
         db.createObjectStore("tasks", { keyPath: "taskid" });
       };
@@ -21,7 +21,7 @@ var idb = {
   },
   async get_task() {
     var db = await this.init();
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       let trans = db.transaction(["tasks"], "readonly");
       trans.oncomplete = () => {
         resolve(tasks);
@@ -30,7 +30,7 @@ var idb = {
       let store = trans.objectStore("tasks");
       let tasks = [];
 
-      store.openCursor().onsuccess = (e) => {
+      store.openCursor().onsuccess = e => {
         let cursor = e.target.result;
         if (cursor) {
           tasks.push(cursor.value);
@@ -41,7 +41,7 @@ var idb = {
   },
   async del_task(taskid) {
     var db = await this.init();
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       let trans = db.transaction(["tasks"], "readwrite");
       trans.oncomplete = () => {
         resolve();
@@ -50,7 +50,7 @@ var idb = {
       let store = trans.objectStore("tasks");
       store.delete(taskid);
     });
-  },
+  }
 };
 
 export default idb;

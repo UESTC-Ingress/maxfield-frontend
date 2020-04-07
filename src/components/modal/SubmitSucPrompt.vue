@@ -39,8 +39,8 @@ export default {
       },
       set(val) {
         return this.$store.commit("updateSubmitSucPrompt", val);
-      },
-    },
-  },
+      }
+    }
+  }
 };
 </script>

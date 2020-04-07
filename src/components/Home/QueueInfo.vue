@@ -28,14 +28,14 @@ export default {
   data: () => ({
     queued: 0,
     workers: 0,
-    loading: false,
+    loading: false
   }),
   methods: {
     refreshData() {
       this.loading = true;
       this.axios
         .get("https://maxfield-api-dev-stevecharlesyang.cloud.okteto.net/queue")
-        .then((res) => {
+        .then(res => {
           if (res.data.error == true) {
             console.log(res.data);
           } else {
@@ -44,10 +44,10 @@ export default {
           }
           this.loading = false;
         });
-    },
+    }
   },
   mounted() {
     this.refreshData();
-  },
+  }
 };
 </script>

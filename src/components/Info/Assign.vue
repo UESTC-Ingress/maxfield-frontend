@@ -16,31 +16,31 @@ export default {
     headers: [
       {
         text: "Link ID",
-        value: "LinkNum",
+        value: "LinkNum"
       },
       {
         text: "Agent",
-        value: "Agent",
+        value: "Agent"
       },
       {
         text: "从",
-        value: "DestinationName",
+        value: "DestinationName"
       },
       {
         text: "至",
-        value: "OriginName",
-      },
-    ],
+        value: "OriginName"
+      }
+    ]
   }),
   props: ["taskinfo"],
   methods: {
     updateData: function() {
       this.axios
         .get(this.taskinfo.endpoint + "/agent_assignments.csv")
-        .then((res) => {
+        .then(res => {
           this.assignlist = csvToObj(res.data);
         });
-    },
+    }
   },
   watch: {
     taskinfo: {
@@ -48,8 +48,8 @@ export default {
         if (this.taskinfo != null) this.updateData();
       },
       immediate: true,
-      deep: true,
-    },
-  },
+      deep: true
+    }
+  }
 };
 </script>

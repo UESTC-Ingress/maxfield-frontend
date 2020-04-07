@@ -55,7 +55,7 @@ import QueueInfo from "@/components/Home/QueueInfo.vue";
 
 export default {
   components: {
-    QueueInfo,
-  },
+    QueueInfo
+  }
 };
 </script>

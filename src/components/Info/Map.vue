@@ -36,8 +36,8 @@
 export default {
   data: () => ({
     toggle_map: 0,
-    filenames: ["portal_map.png", "link_map.png", "plan_movie.gif"],
+    filenames: ["portal_map.png", "link_map.png", "plan_movie.gif"]
   }),
-  props: ["taskinfo"],
+  props: ["taskinfo"]
 };
 </script>

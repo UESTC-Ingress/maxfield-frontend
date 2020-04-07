@@ -40,23 +40,23 @@ export default {
       {
         text: "任务 ID",
         sortable: false,
-        value: "taskid",
+        value: "taskid"
       },
       {
         text: "失效时间",
-        value: "created",
+        value: "created"
       },
       {
         text: "状态",
-        value: "status",
+        value: "status"
       },
       {
         text: "操作",
         sortable: false,
-        value: "action",
-      },
+        value: "action"
+      }
     ],
-    tasklist: [],
+    tasklist: []
   }),
   methods: {
     plusoneday(day) {
@@ -68,7 +68,7 @@ export default {
       if (tasklist_s.length != 0) {
         tasklist_s = tasklist_s.reverse();
         var task_status_post = [];
-        tasklist_s.forEach((el) => {
+        tasklist_s.forEach(el => {
           if ((new Date() - el.created.getTime()) / 1000 > 86400)
             el.status = "EXPIRED";
           else task_status_post.push(el);
@@ -78,10 +78,10 @@ export default {
             .post(
               "https://maxfield-api-dev-stevecharlesyang.cloud.okteto.net/status",
               {
-                tasks: task_status_post.map((e) => e.taskid),
+                tasks: task_status_post.map(e => e.taskid)
               }
             )
-            .then((res) => {
+            .then(res => {
               for (let index = 0; index < res.data.data.length; index++) {
                 tasklist_s[tasklist_s.indexOf(task_status_post[index])].status =
                   res.data.data[index];
@@ -121,14 +121,13 @@ export default {
             color: "green",
             selectable: true,
             descr:
-              "完成：" +
-              (nodelist[status] ? nodelist[status].name : "未知节点"),
+              "完成：" + (nodelist[status] ? nodelist[status].name : "未知节点")
           };
       }
-    },
+    }
   },
   mounted() {
     this.gettasks();
-  },
+  }
 };
 </script>
