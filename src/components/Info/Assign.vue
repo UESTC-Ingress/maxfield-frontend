@@ -24,11 +24,11 @@ export default {
       },
       {
         text: "从",
-        value: "DestinationName"
+        value: "OriginName"
       },
       {
         text: "至",
-        value: "OriginName"
+        value: "DestinationName"
       }
     ]
   }),

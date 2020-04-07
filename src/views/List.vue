@@ -26,6 +26,13 @@
           ><v-icon>mdi-delete</v-icon></v-btn
         >
       </template>
+      <template v-slot:top>
+        <v-toolbar flat>
+          <v-toolbar-title>计算任务列表</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-btn @click="gettasks"><v-icon>mdi-refresh</v-icon>刷新</v-btn>
+        </v-toolbar>
+      </template>
     </v-data-table>
   </v-container>
 </template>
