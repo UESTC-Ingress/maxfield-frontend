@@ -43,6 +43,7 @@
           <v-textarea
             auto-grow
             outlined
+            validate-on-blur
             v-model="formData.portals"
             name="input-7-4"
             label="Portal 列表"
@@ -52,7 +53,7 @@
                 (v && v.split(/\r\n|\r|\n/).length < 101) ||
                 'Portal 数量限制在100个',
               v =>
-                /^([^;]*; https:\/\/intel.ingress.com\/intel\?ll=-?[0-9]*\.[0-9]*,-?[0-9]*\.[0-9]*&z=[0-9]*&pll=-?[0-9]*\.[0-9]*,-?[0-9]*\.[0-9]*(;[0-9]{1,})?(;SBUL)?\n?){1,101}$/g.test(
+                /^([^;]*; https:\/\/intel.ingress.com\/intel\?ll=-?[0-9]*\.[0-9]*,-?[0-9]*\.[0-9]*&z=[0-9]*&pll=-?[0-9]*\.[0-9]*,-?[0-9]*\.[0-9]*(;[0-9]{1,})?(;SBUL)?\n){1,101}$/g.test(
                   v
                 ) || '输入内容不合法'
             ]"

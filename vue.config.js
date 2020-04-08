@@ -1,6 +1,6 @@
 module.exports = {
   transpileDependencies: ["vuetify"],
   devServer: {
-    host: "maxfield-dev.nia.ac.cn"
+    host: "127.0.0.1"
   }
 };
