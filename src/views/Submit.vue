@@ -40,9 +40,11 @@
             </v-dialog>
           </v-subheader>
 
-          <v-text-field
+          <v-textarea
             ref="currentportal"
             outlined
+            auto-grow
+            hint="输入最后一行后，请换行"
             v-model="currentportal"
             append-icon="mdi-send"
             @click:append.stop="insertportal"
@@ -54,7 +56,7 @@
             name="input-7-4"
             label="Portal 列表"
             :rules="[v => checkvalid(v) || !v || '输入内容不合法']"
-          ></v-text-field>
+          ></v-textarea>
           <v-expansion-panels class="mb-4" accordion v-model="expan_open">
             <v-expansion-panel>
               <v-expansion-panel-header
@@ -203,23 +205,28 @@ export default {
   },
   methods: {
     checkvalid(portaldata) {
-      return /^[^;]*; https:\/\/intel.ingress.com\/intel\?ll=-?[0-9]*\.[0-9]*,-?[0-9]*\.[0-9]*&z=[0-9]*&pll=-?[0-9]*\.[0-9]*,-?[0-9]*\.[0-9]*(;[0-9]{1,})?(;SBUL)?$/g.test(
+      return /^([^;]*; https:\/\/intel.ingress.com\/intel\?ll=-?[0-9]*\.[0-9]*,-?[0-9]*\.[0-9]*&z=[0-9]*&pll=-?[0-9]*\.[0-9]*,-?[0-9]*\.[0-9]*(;[0-9]{1,})?(;SBUL)?\n){1,101}$/g.test(
         portaldata
       );
     },
     insertportal() {
       if (this.checkvalid(this.currentportal)) {
-        var tmpdata = this.currentportal.split(";");
-        var portalobj = {
-          portal: tmpdata[0],
-          url: tmpdata[1]
-        };
-        for (let index = 2; index < tmpdata.length; index++) {
-          if (tmpdata[index] == "SBUL") portalobj.sbul = true;
-          else portalobj.keys = tmpdata[index];
-        }
-        this.portallist.push(portalobj);
-        this.currentportal = "";
+        var splitted = this.currentportal.split("\n");
+        splitted.forEach(line => {
+          if (line != "") {
+            var tmpdata = line.split(";");
+            var portalobj = {
+              portal: tmpdata[0],
+              url: tmpdata[1]
+            };
+            for (let index = 2; index < tmpdata.length; index++) {
+              if (tmpdata[index] == "SBUL") portalobj.sbul = true;
+              else portalobj.keys = tmpdata[index];
+            }
+            this.portallist.push(portalobj);
+            this.currentportal = "";
+          }
+        });
       }
     },
     async recaptcha() {

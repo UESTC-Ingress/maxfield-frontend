@@ -25,6 +25,14 @@
             <p>
               本站全部代码均使用GPLv3协议授权。
             </p>
+            <p>
+              推荐使用
+              <a
+                href="https://raw.githubusercontent.com/modkin/Ingress-IITC-Multi-Export/master/multi_export.user.js"
+                >Portal 导出插件</a
+              >
+              以配合使用，体验更佳。
+            </p>
           </v-card-text>
         </v-card> </v-col
       ><v-col cols="12" md="6">
