@@ -40,24 +40,55 @@
             </v-dialog>
           </v-subheader>
 
-          <v-textarea
-            auto-grow
+          <v-text-field
+            ref="currentportal"
             outlined
-            validate-on-blur
-            v-model="formData.portals"
+            v-model="currentportal"
+            append-icon="mdi-send"
+            @click:append.stop="insertportal"
+            @focus="
+              {
+                expan_open = 0;
+              }
+            "
             name="input-7-4"
             label="Portal 列表"
-            :rules="[
-              v => !!v || '您必须输入内容！',
-              v =>
-                (v && v.split(/\r\n|\r|\n/).length < 101) ||
-                'Portal 数量限制在100个',
-              v =>
-                /^([^;]*; https:\/\/intel.ingress.com\/intel\?ll=-?[0-9]*\.[0-9]*,-?[0-9]*\.[0-9]*&z=[0-9]*&pll=-?[0-9]*\.[0-9]*,-?[0-9]*\.[0-9]*(;[0-9]{1,})?(;SBUL)?\n){1,101}$/g.test(
-                  v
-                ) || '输入内容不合法'
-            ]"
-          ></v-textarea>
+            :rules="[v => checkvalid(v) || !v || '输入内容不合法']"
+          ></v-text-field>
+          <v-expansion-panels class="mb-4" accordion v-model="expan_open">
+            <v-expansion-panel>
+              <v-expansion-panel-header
+                >已选择的 Portal ({{
+                  portallist.length
+                }}个)</v-expansion-panel-header
+              >
+              <v-expansion-panel-content>
+                <v-data-table
+                  :headers="portallist_header"
+                  :items-per-page="15"
+                  :items="portallist"
+                >
+                  <template v-slot:item.keys="{ item }">
+                    {{ "keys" in item ? item.keys : "无" }}
+                  </template>
+                  <template v-slot:item.sbul="{ item }">
+                    {{ item.sbul ? "有" : "无" }}
+                  </template>
+                  <template v-slot:item.actions="{ item }">
+                    <v-btn
+                      icon
+                      @click="
+                        {
+                          portallist.pop(item);
+                        }
+                      "
+                      ><v-icon>mdi-delete</v-icon></v-btn
+                    >
+                  </template>
+                </v-data-table>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
           <v-row>
             <v-col cols="12" sm="4">
               <v-text-field
@@ -100,7 +131,6 @@
           ></v-checkbox>
           <v-checkbox
             v-model="formData['g-recaptcha-response']"
-            :rules="[v => !!v || '验证未通过！']"
             label="人机交互验证"
             required
             style="pointer-events: none;"
@@ -117,7 +147,7 @@
         <v-btn
           large
           @click.stop="submitForm"
-          :disabled="loading"
+          :disabled="loading || portallist.length < 3"
           color="primary"
         >
           <v-icon>mdi-application</v-icon>
@@ -135,11 +165,33 @@ import idb from "@/utils/idb";
 export default {
   components: { SubmitSucPrompt },
   data: () => ({
+    expan_open: 0,
+    portallist_header: [
+      {
+        text: "Portal 名称",
+        value: "portal"
+      },
+      {
+        text: "Key 数量",
+        value: "keys"
+      },
+      {
+        text: "SBUL",
+        value: "sbul"
+      },
+      {
+        text: "操作",
+        sortable: false,
+        value: "actions"
+      }
+    ],
     formData: {
       agents: 1,
       "g-recaptcha-response": null
     },
     loading: false,
+    portallist: [],
+    currentportal: "",
     helper_portals: false,
     task: {
       taskid: null,
@@ -150,17 +202,47 @@ export default {
     this.recaptcha();
   },
   methods: {
+    checkvalid(portaldata) {
+      return /^[^;]*; https:\/\/intel.ingress.com\/intel\?ll=-?[0-9]*\.[0-9]*,-?[0-9]*\.[0-9]*&z=[0-9]*&pll=-?[0-9]*\.[0-9]*,-?[0-9]*\.[0-9]*(;[0-9]{1,})?(;SBUL)?$/g.test(
+        portaldata
+      );
+    },
+    insertportal() {
+      if (this.checkvalid(this.currentportal)) {
+        var tmpdata = this.currentportal.split(";");
+        var portalobj = {
+          portal: tmpdata[0],
+          url: tmpdata[1]
+        };
+        for (let index = 2; index < tmpdata.length; index++) {
+          if (tmpdata[index] == "SBUL") portalobj.sbul = true;
+          else portalobj.keys = tmpdata[index];
+        }
+        this.portallist.push(portalobj);
+        this.currentportal = "";
+      }
+    },
     async recaptcha() {
       await this.$recaptchaLoaded();
       this.formData["g-recaptcha-response"] = await this.$recaptcha("login");
     },
     initializeForm() {
-      this.formData = { agents: 1, "g-recaptcha-response": null };
+      this.portallist = [];
+      (this.currentportal = ""),
+        (this.formData = { agents: 1, "g-recaptcha-response": null });
     },
     submitForm() {
       if (!this.$refs.form.validate()) {
         return;
       }
+      var portals_string = "";
+      this.portallist.forEach(portal => {
+        portals_string += portal.portal + ";" + portal.url;
+        if ("keys" in portal) portals_string += ";" + portal.keys;
+        if ("sbul" in portal) portals_string += ";SBUL";
+        portals_string += "\n";
+      });
+      this.formData.portals = portals_string;
       this.formData.portals = this.formData.portals.replace(/,(?=.*;)/g, ".");
       this.loading = true;
       this.axios
