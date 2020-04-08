@@ -42,7 +42,6 @@
 import Key from "@/components/Info/Key.vue";
 import Assign from "@/components/Info/Assign.vue";
 import Map from "@/components/Info/Map.vue";
-import nodelist from "@/assets/nodelist.json";
 
 export default {
   components: {
@@ -62,7 +61,9 @@ export default {
     getInfo: function() {
       this.axios
         .get(
-          nodelist[this.$route.params.workerid].endpoint +
+          process.env.VUE_APP_API +
+            "/file/" +
+            this.$route.params.workerid +
             "/" +
             this.$route.params.taskid +
             "/info.json"
@@ -70,7 +71,9 @@ export default {
         .then(res => {
           this.taskinfo = res.data;
           this.taskinfo.endpoint =
-            nodelist[this.$route.params.workerid].endpoint +
+            process.env.VUE_APP_API +
+            "/file/" +
+            this.$route.params.workerid +
             "/" +
             this.$route.params.taskid;
         });

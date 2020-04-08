@@ -42,7 +42,6 @@
 </template>
 <script>
 import idb from "@/utils/idb";
-import nodelist from "@/assets/nodelist.json";
 
 export default {
   data: () => ({
@@ -86,12 +85,9 @@ export default {
         });
         if (task_status_post.length)
           this.axios
-            .post(
-              "https://maxfield-api-dev-stevecharlesyang.cloud.okteto.net/status",
-              {
-                tasks: task_status_post.map(e => e.taskid)
-              }
-            )
+            .post(process.env.VUE_APP_API + "/status", {
+              tasks: task_status_post.map(e => e.taskid)
+            })
             .then(res => {
               for (let index = 0; index < res.data.data.length; index++) {
                 tasklist_s[tasklist_s.indexOf(task_status_post[index])].status =
@@ -135,8 +131,7 @@ export default {
           return {
             color: "green",
             selectable: true,
-            descr:
-              "完成：" + (nodelist[status] ? nodelist[status].name : "未知节点")
+            descr: "完成：" + (status ? status : "未知节点")
           };
       }
     }

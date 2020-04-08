@@ -32,13 +32,13 @@
           <v-card-actions>
             <v-row class="ml-4 mr-4">
               <v-col>
-                <v-btn large outlined to="/submit"
+                <v-btn large outlined color="primary" to="/submit"
                   ><v-icon>mdi-file-document-edit-outline</v-icon
                   >提交请求</v-btn
                 >
               </v-col>
               <v-col>
-                <v-btn large outlined to="/list"
+                <v-btn large outlined color="primary" to="/list"
                   ><v-icon>mdi-clipboard-list-outline</v-icon>查看列表</v-btn
                 >
               </v-col>
@@ -46,6 +46,7 @@
                 <v-btn
                   large
                   outlined
+                  color="primary"
                   @click="$store.commit('updateAbout', true)"
                   ><v-icon>mdi-information</v-icon>关于本站</v-btn
                 >

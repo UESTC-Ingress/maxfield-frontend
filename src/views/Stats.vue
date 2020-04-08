@@ -19,21 +19,24 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="node in nodearray" :key="node[0]">
-              <td>{{ node[1].name }}</td>
-              <td>{{ node[1].cores }}</td>
+            <tr v-for="node in nodearray" :key="node.endpoint">
+              <td>{{ node.name }}</td>
+              <td>
+                {{ /.cloud.okteto.net/.test(node.endpoint) ? "2" : "未知" }}
+              </td>
               <td>
                 <v-chip
+                  dark
                   :class="
-                    node[1].status != undefined
-                      ? node[1].status
+                    results[node.name] != undefined
+                      ? results[node.name]
                         ? 'success'
                         : 'red'
                       : 'grey'
                   "
                   >{{
-                    node[1].status != undefined
-                      ? node[1].status
+                    results[node.name] != undefined
+                      ? results[node.name]
                         ? "正常"
                         : "丢失"
                       : "测试中"
@@ -44,33 +47,58 @@
           </tbody>
         </v-simple-table>
       </v-tab-item>
-      <v-tab-item> </v-tab-item>
+      <v-tab-item>
+        <v-container>
+          <v-row>
+            <v-col cols="12" md="6">
+              <v-card>
+                <v-card-title>处理总数</v-card-title>
+                <v-card-text>
+                  <h1>{{ submitted }}</h1>
+                </v-card-text>
+              </v-card>
+            </v-col>
+            <v-col cols="12" md="6">
+              <v-card>
+                <v-card-title>完成总数</v-card-title>
+                <v-card-text>
+                  <h1>{{ success }}</h1>
+                </v-card-text>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-tab-item>
     </v-tabs>
   </v-container>
 </template>
 <script>
-import nodelist from "@/assets/nodelist.json";
+import Vue from "vue";
 
 export default {
   data: () => ({
-    nodelist: nodelist,
-    nodearray: []
+    nodearray: [],
+    results: {},
+    submitted: 0,
+    success: 0
   }),
   methods: {
     refreshData: function() {
-      Object.entries(this.nodelist).forEach(nodeitem => {
-        this.axios
-          .get(nodeitem[1].endpoint)
-          .then(res => {
-            if (res.status === 200) this.nodelist[nodeitem[0]].status = true;
-            else this.nodelist[nodeitem[0]].status = false;
-          })
-          .catch(() => {
-            this.nodelist[nodeitem[0]].status = false;
-          })
-          .finally(() => {
-            this.nodearray = Object.entries(this.nodelist);
-          });
+      this.axios.get(process.env.VUE_APP_API + "/stats").then(res => {
+        this.nodearray = res.data.nodes;
+        this.nodearray.forEach(n => {
+          this.axios
+            .get("https://" + n.endpoint)
+            .then(res => {
+              if (res.status === 200) Vue.set(this.results, n.name, true);
+              else Vue.set(this.results, n.name, false);
+            })
+            .catch(() => {
+              Vue.set(this.results, n.name, false);
+            });
+        });
+        this.submitted = res.data.submits;
+        this.success = res.data.success;
       });
     }
   },

@@ -80,8 +80,7 @@
             <v-col cols="12" sm="4">
               <v-checkbox
                 v-model="formData.googlemap"
-                label="是否使用 Google Maps? (暂不可用)"
-                disabled
+                label="是否使用 Google Maps? "
               ></v-checkbox>
             </v-col>
           </v-row>
@@ -95,7 +94,7 @@
           <v-subheader>条款相关</v-subheader>
           <v-checkbox
             :rules="[v => !!v || '您必须同意此项！']"
-            label="是否接受 MaxField NIA-CN 隐私政策和用户使用条款?（咕咕咕）"
+            label="是否接受 MaxField NIA-CN 隐私政策和用户使用条款?"
             required
           ></v-checkbox>
           <v-checkbox
@@ -164,10 +163,7 @@ export default {
       this.formData.portals = this.formData.portals.replace(/,(?=.*;)/g, ".");
       this.loading = true;
       this.axios
-        .post(
-          "https://maxfield-api-dev-stevecharlesyang.cloud.okteto.net/submit",
-          this.formData
-        )
+        .post(process.env.VUE_APP_API + "/submit", this.formData)
         .then(res => {
           this.loading = false;
           if (res.data.error == true) {

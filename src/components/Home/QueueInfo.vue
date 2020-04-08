@@ -33,17 +33,15 @@ export default {
   methods: {
     refreshData() {
       this.loading = true;
-      this.axios
-        .get("https://maxfield-api-dev-stevecharlesyang.cloud.okteto.net/queue")
-        .then(res => {
-          if (res.data.error == true) {
-            //console.log(res.data);
-          } else {
-            this.queued = res.data.inqueue;
-            this.workers = res.data.worker;
-          }
-          this.loading = false;
-        });
+      this.axios.get(process.env.VUE_APP_API + "/queue").then(res => {
+        if (res.data.error == true) {
+          //console.log(res.data);
+        } else {
+          this.queued = res.data.inqueue;
+          this.workers = res.data.worker;
+        }
+        this.loading = false;
+      });
     }
   },
   mounted() {
