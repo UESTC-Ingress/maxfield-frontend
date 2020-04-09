@@ -9,7 +9,7 @@
     >
       <template v-slot:item.created="{ item }">
         {{
-          ["orange", "red"].includes(status2descr(item.status).color)
+          ["orange", "red", "primary"].includes(status2descr(item.status).color)
             ? "--"
             : plusoneday(item.created).toLocaleString()
         }}
@@ -50,23 +50,23 @@ export default {
       {
         text: "任务 ID",
         sortable: false,
-        value: "taskid",
+        value: "taskid"
       },
       {
         text: "失效时间",
-        value: "created",
+        value: "created"
       },
       {
         text: "状态",
-        value: "status",
+        value: "status"
       },
       {
         text: "操作",
         sortable: false,
-        value: "action",
-      },
+        value: "action"
+      }
     ],
-    tasklist: [],
+    tasklist: []
   }),
   methods: {
     plusoneday(day) {
@@ -78,7 +78,7 @@ export default {
       if (tasklist_s.length != 0) {
         tasklist_s = tasklist_s.reverse();
         var task_status_post = [];
-        tasklist_s.forEach((el) => {
+        tasklist_s.forEach(el => {
           if ((new Date() - el.created.getTime()) / 1000 > 86400)
             el.status = "EXPIRED";
           else task_status_post.push(el);
@@ -86,9 +86,9 @@ export default {
         if (task_status_post.length)
           this.axios
             .post(process.env.VUE_APP_API + "/status", {
-              tasks: task_status_post.map((e) => e.taskid),
+              tasks: task_status_post.map(e => e.taskid)
             })
-            .then((res) => {
+            .then(res => {
               for (let index = 0; index < res.data.data.length; index++) {
                 tasklist_s[tasklist_s.indexOf(task_status_post[index])].status =
                   res.data.data[index];
@@ -124,7 +124,7 @@ export default {
         return {
           color: "primary",
           selectable: false,
-          descr: "正在节点" + status.replace(".processing", "") + "处理",
+          descr: "正在节点" + status.replace(".processing", "") + "处理"
         };
       switch (status) {
         case "FAILED":
@@ -137,13 +137,13 @@ export default {
           return {
             color: "green",
             selectable: true,
-            descr: "完成：" + (status ? status : "未知节点"),
+            descr: "完成：" + (status ? status : "未知节点")
           };
       }
-    },
+    }
   },
   mounted() {
     this.gettasks();
-  },
+  }
 };
 </script>
