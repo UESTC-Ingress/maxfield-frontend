@@ -120,6 +120,8 @@ export default {
       );
     },
     status2descr: function(status) {
+      if (status == null)
+        return { color: "orange", selectable: false, descr: "等待中" };
       if (status.endsWith(".processing"))
         return {
           color: "primary",
@@ -131,8 +133,6 @@ export default {
           return { color: "red", selectable: false, descr: "失败" };
         case "EXPIRED":
           return { color: "grey", selectable: false, descr: "过期" };
-        case null:
-          return { color: "orange", selectable: false, descr: "等待中" };
         default:
           return {
             color: "green",
