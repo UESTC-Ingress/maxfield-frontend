@@ -250,7 +250,10 @@ export default {
         portals_string += "\n";
       });
       this.formData.portals = portals_string;
-      this.formData.portals = this.formData.portals.replace(/,(?=.*https:\/\/intel.ingress.com)/g, ".");
+      this.formData.portals = this.formData.portals.replace(
+        /,(?=.*https:\/\/intel.ingress.com)/g,
+        "."
+      );
       this.loading = true;
       this.axios
         .post(process.env.VUE_APP_API + "/submit", this.formData)
