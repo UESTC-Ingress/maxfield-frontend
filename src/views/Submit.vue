@@ -246,6 +246,7 @@ export default {
       this.portallist.forEach(portal => {
         portals_string += portal.portal + ";" + portal.url;
         if ("keys" in portal) portals_string += ";" + portal.keys;
+        else if ("sbul" in portal) portal_string += ";0";
         if ("sbul" in portal) portals_string += ";SBUL";
         portals_string += "\n";
       });
