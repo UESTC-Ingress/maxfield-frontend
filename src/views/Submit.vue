@@ -246,12 +246,11 @@ export default {
       this.portallist.forEach(portal => {
         portals_string += portal.portal + ";" + portal.url;
         if ("keys" in portal) portals_string += ";" + portal.keys;
-        else if ("sbul" in portal) portal_string += ";0";
         if ("sbul" in portal) portals_string += ";SBUL";
         portals_string += "\n";
       });
       this.formData.portals = portals_string;
-      this.formData.portals = this.formData.portals.replace(/,(?=.*;)/g, ".");
+      this.formData.portals = this.formData.portals.replace(/,(?=.*https:\/\/intel.ingress.com)/g, ".");
       this.loading = true;
       this.axios
         .post(process.env.VUE_APP_API + "/submit", this.formData)
