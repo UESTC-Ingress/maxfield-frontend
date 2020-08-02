@@ -1,14 +1,8 @@
 <template>
   <v-container>
     <v-tabs grow :show-arrows="false" centered>
-      <v-tab>
-        <v-icon>mdi-graph</v-icon>
-        计算节点
-      </v-tab>
-      <v-tab>
-        <v-icon>mdi-post-outline</v-icon>
-        统计信息
-      </v-tab>
+      <v-tab> <v-icon>mdi-graph</v-icon>计算节点 </v-tab>
+      <v-tab> <v-icon>mdi-post-outline</v-icon>统计信息 </v-tab>
       <v-tab-item>
         <v-simple-table>
           <thead>
@@ -21,27 +15,9 @@
           <tbody>
             <tr v-for="node in nodearray" :key="node.endpoint">
               <td>{{ node.name }}</td>
+              <td>{{ node.cores }}</td>
               <td>
-                {{ /.cloud.okteto.net/.test(node.endpoint) ? "2" : "未知" }}
-              </td>
-              <td>
-                <v-chip
-                  dark
-                  :class="
-                    results[node.name] != undefined
-                      ? results[node.name]
-                        ? 'success'
-                        : 'red'
-                      : 'grey'
-                  "
-                  >{{
-                    results[node.name] != undefined
-                      ? results[node.name]
-                        ? "正常"
-                        : "丢失"
-                      : "测试中"
-                  }}</v-chip
-                >
+                <v-chip dark class="success">正常</v-chip>
               </td>
             </tr>
           </tbody>
@@ -73,12 +49,9 @@
   </v-container>
 </template>
 <script>
-import Vue from "vue";
-
 export default {
   data: () => ({
     nodearray: [],
-    results: {},
     submitted: 0,
     success: 0
   }),
@@ -86,17 +59,6 @@ export default {
     refreshData: function() {
       this.axios.get(process.env.VUE_APP_API + "/stats").then(res => {
         this.nodearray = res.data.nodes;
-        this.nodearray.forEach(n => {
-          this.axios
-            .get("https://" + n.endpoint)
-            .then(res => {
-              if (res.status === 200) Vue.set(this.results, n.name, true);
-              else Vue.set(this.results, n.name, false);
-            })
-            .catch(() => {
-              Vue.set(this.results, n.name, false);
-            });
-        });
         this.submitted = res.data.submits;
         this.success = res.data.success;
       });

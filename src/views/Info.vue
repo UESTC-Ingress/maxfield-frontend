@@ -61,21 +61,15 @@ export default {
     getInfo: function() {
       this.axios
         .get(
-          process.env.VUE_APP_API +
-            "/file/" +
-            this.$route.params.workerid +
+          process.env.VUE_APP_FILE +
             "/" +
             this.$route.params.taskid +
-            "/info.json"
+            "-info.json"
         )
         .then(res => {
           this.taskinfo = res.data;
           this.taskinfo.endpoint =
-            process.env.VUE_APP_API +
-            "/file/" +
-            this.$route.params.workerid +
-            "/" +
-            this.$route.params.taskid;
+            process.env.VUE_APP_FILE + "/" + this.$route.params.taskid;
         });
     }
   },

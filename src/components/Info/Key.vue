@@ -63,24 +63,24 @@ export default {
     download_file: function() {
       if (this.tab_pos == 0)
         downloadFile(
-          this.taskinfo.endpoint + "/agent_key_preparation.csv",
+          this.taskinfo.endpoint + "-agent_key_preparation.csv",
           "agent_key_preparation.csv"
         );
       if (this.tab_pos == 1)
         downloadFile(
-          this.taskinfo.endpoint + "/ownership_preparation.txt",
+          this.taskinfo.endpoint + "-ownership_preparation.txt",
           "agent_key_preparation.csv"
         );
     },
     updateData: function() {
       this.axios
-        .get(this.taskinfo.endpoint + "/agent_key_preparation.csv")
+        .get(this.taskinfo.endpoint + "-agent_key_preparation.csv")
         .then(res => {
           this.key_list = csvToObj(res.data);
           this.loading = false;
         });
       this.axios
-        .get(this.taskinfo.endpoint + "/ownership_preparation.txt")
+        .get(this.taskinfo.endpoint + "-ownership_preparation.txt")
         .then(res => {
           this.capture_data = res.data;
         });

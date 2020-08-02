@@ -42,13 +42,13 @@ export default {
   methods: {
     download_file: function() {
       downloadFile(
-        this.taskinfo.endpoint + "/agent_assignments.csv",
+        this.taskinfo.endpoint + "-agent_assignments.csv",
         "agent_assignments.csv"
       );
     },
     updateData: function() {
       this.axios
-        .get(this.taskinfo.endpoint + "/agent_assignments.csv")
+        .get(this.taskinfo.endpoint + "-agent_assignments.csv")
         .then(res => {
           this.assignlist = csvToObj(res.data);
         });

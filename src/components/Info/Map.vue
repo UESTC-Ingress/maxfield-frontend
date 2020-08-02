@@ -18,7 +18,7 @@
       <v-img
         contain
         max-width="60vw"
-        :src="taskinfo.endpoint + '/' + filenames[toggle_map]"
+        :src="taskinfo.endpoint + '-' + filenames[toggle_map]"
       >
         <template v-slot:placeholder>
           <v-row class="fill-height ma-0" align="center" justify="center">
@@ -47,7 +47,7 @@ export default {
   methods: {
     download_pic: function() {
       downloadFile(
-        this.taskinfo.endpoint + "/" + this.filenames[this.toggle_map],
+        this.taskinfo.endpoint + "-" + this.filenames[this.toggle_map],
         this.filenames[this.toggle_map]
       );
     }
