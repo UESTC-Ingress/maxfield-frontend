@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.0bf7cd01470936cb36d3c888d1786c32.js"
+  "/precache-manifest.7a28f1513a18b5d869e92d2844c14795.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "maxfield-frontend"});
