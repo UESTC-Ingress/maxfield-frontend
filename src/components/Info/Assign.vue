@@ -2,6 +2,7 @@
   <div>
     <v-data-table
       :headers="headers"
+      :loading="loading"
       :items="assignlist"
       :items-per-page="10"
       class="elevation-1"
@@ -18,6 +19,7 @@ import downloadFile from "@/utils/download.js";
 
 export default {
   data: () => ({
+    loading: true,
     assignlist: [],
     headers: [
       {
@@ -51,6 +53,7 @@ export default {
         .get(this.taskinfo.endpoint + "-agent_assignments.csv")
         .then(res => {
           this.assignlist = csvToObj(res.data);
+          this.loading = false
         });
     }
   },

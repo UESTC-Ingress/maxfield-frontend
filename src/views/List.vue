@@ -23,7 +23,7 @@
         <v-btn
           icon
           v-if="status2descr(item.status).selectable"
-          :to="'/info/' + item.status + '/' + item.taskid"
+          :to="'/info/' + item.taskid"
           ><v-icon>mdi-information-outline</v-icon></v-btn
         >
         <v-btn icon @click.stop="deltask(item.taskid)"
