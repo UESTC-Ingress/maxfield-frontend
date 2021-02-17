@@ -53,7 +53,7 @@ export default {
         .get(this.taskinfo.endpoint + "-agent_assignments.csv")
         .then(res => {
           this.assignlist = csvToObj(res.data);
-          this.loading = false
+          this.loading = false;
         });
     }
   },

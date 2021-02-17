@@ -11,11 +11,7 @@
       <v-card-text>
         您的任务编号为: <code>{{ task.taskid }}</code
         ><br />
-        它将保存在您的浏览器缓存中，您可以随时<router-link
-          to="/list"
-          @click="dialog = false"
-          >查看进度</router-link
-        >。
+        它将保存在您的浏览器缓存中，您可以随时<a @click="tolist">查看进度</a>。
         <br />
         队列前方有<b>{{ task.submitinqueue }}</b
         >个任务。
@@ -34,6 +30,12 @@
 <script>
 export default {
   props: ["task"],
+  methods: {
+    tolist() {
+      this.dialog = false;
+      this.$router.push("/list");
+    }
+  },
   computed: {
     dialog: {
       get() {
